@@ -1,7 +1,7 @@
 <header id="main-header">
     <div class="container">
         <a href="{{ route('beranda.index') }}" class="header-identity">
-            <div class="header-logo">SK</div>
+            <img src="{{ asset('img/logo/logo.png') }}" alt="Logo Desa Sumur Kumbang" class="header-logo-image">
             <div>
                 <span class="header-title">Desa Sumur Kumbang</span>
                 <span class="header-subtitle">Kec. Kalianda, Lampung Selatan</span>

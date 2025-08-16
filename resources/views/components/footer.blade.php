@@ -3,7 +3,7 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <div class="footer-identity">
-                    <div class="footer-logo">SK</div>
+                     <img src="{{ asset('img/logo/logo.png') }}" alt="Logo Desa Sumur Kumbang" class="footer-logo-image">
                     <div>
                         <h4>Desa Sumur Kumbang</h4>
                         <span>Kec. Kalianda, Lampung Selatan</span>
