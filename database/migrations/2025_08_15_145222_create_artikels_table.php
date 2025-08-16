@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->text('deskripsi');
             $table->string('gambar')->nullable();
-            $table->foreignId('kategoris_id')->constrained('kategoris')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('kategori_id')->constrained('kategoris')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamp('published_at');
             $table->timestamps();
