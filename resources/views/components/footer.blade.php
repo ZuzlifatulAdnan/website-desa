@@ -23,13 +23,13 @@
             <div class="footer-col">
                 <h4>Menu Utama</h4>
                 <ul>
-                    <li><a href="index.html">Beranda</a></li>
-                    <li><a href="profil.html">Profil Desa</a></li>
-                    <li><a href="layanan.html">Layanan</a></li>
-                    <li><a href="wisata.html">Wisata</a></li>
-                    <li><a href="budaya.html">Budaya</a></li>
-                    <li><a href="berita.html">Berita</a></li>
-                    <li><a href="kontak.html">Kontak</a></li>
+                    <li><a href="{{ route('beranda.index') }}">Beranda</a></li>
+                    <li><a href="{{ route('profile.index') }}">Profil Desa</a></li>
+                    <li><a href="{{ route('layanan.index') }}">Layanan</a></li>
+                    <li><a href="{{ route('wisata.index') }}">Wisata</a></li>
+                    <li><a href="{{ route('budaya.index') }}">Budaya</a></li>
+                    <li><a href="{{ route('berita.index') }}">Berita</a></li>
+                    <li><a href="{{ route('kontak.index') }}">Kontak</a></li>
                 </ul>
             </div>
             <div class="footer-col">
