@@ -16,12 +16,15 @@ return new class extends Migration
             $table->string('judul');
             $table->string('slug')->unique();
             $table->text('deskripsi');
-            $table->string('gambar');
-            $table->time('jam_buka');
-            $table->time('jam_tutup');
-            $table->string('harga_tiket');
-            $table->string('fasilitas');
-            $table->text('lokasi');
+            $table->string('gambar')->nullable();
+            $table->time('jam_buka')->nullable();
+            $table->time('jam_tutup')->nullable();
+            $table->string('harga_tiket')->nullable();
+            $table->text('fasilitas')->nullable();
+            $table->text('lokasi')->nullable();
+            $table->string('maps_embed')->nullable();
+            $table->boolean('is_featured')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

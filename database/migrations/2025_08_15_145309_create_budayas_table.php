@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('budayas', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('deskripsi');
-            $table->string('gambar');
-            $table->string('jadwal');
-            $table->text('aktivitas');
+            $table->string('gambar')->nullable();
+            $table->string('jadwal')->nullable();
+            $table->text('aktivitas')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

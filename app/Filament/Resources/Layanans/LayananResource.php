@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Layanans;
 
+use App\Filament\Concerns\AuthorizeWithPermission;
 use App\Filament\Resources\Layanans\Pages\CreateLayanan;
 use App\Filament\Resources\Layanans\Pages\EditLayanan;
 use App\Filament\Resources\Layanans\Pages\ListLayanans;
@@ -15,14 +16,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class LayananResource extends Resource
 {
+    use AuthorizeWithPermission;
+
+    protected static string $permissionName = 'kelola_layanan';
+
     protected static ?string $model = Layanan::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
-    protected static ?string $recordTitleAttribute = 'Layanan';
+    protected static string|UnitEnum|null $navigationGroup = 'Konten';
+
+    protected static ?int $navigationSort = 6;
+
+    protected static ?string $navigationLabel = 'Layanan';
+
+    protected static ?string $modelLabel = 'Layanan';
+
+    protected static ?string $pluralModelLabel = 'Layanan';
+
+    protected static ?string $recordTitleAttribute = 'judul';
 
     public static function form(Schema $schema): Schema
     {
@@ -37,13 +53,6 @@ class LayananResource extends Resource
     public static function table(Table $table): Table
     {
         return LayanansTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

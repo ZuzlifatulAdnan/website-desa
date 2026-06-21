@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Kategoris;
 
+use App\Filament\Concerns\AuthorizeWithPermission;
 use App\Filament\Resources\Kategoris\Pages\CreateKategori;
 use App\Filament\Resources\Kategoris\Pages\EditKategori;
 use App\Filament\Resources\Kategoris\Pages\ListKategoris;
@@ -15,14 +16,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class KategoriResource extends Resource
 {
+    use AuthorizeWithPermission;
+
+    protected static string $permissionName = 'kelola_kategori';
+
     protected static ?string $model = Kategori::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
-    protected static ?string $recordTitleAttribute = 'Kategori';
+    protected static string|UnitEnum|null $navigationGroup = 'Konten';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationLabel = 'Kategori';
+
+    protected static ?string $modelLabel = 'Kategori';
+
+    protected static ?string $pluralModelLabel = 'Kategori';
+
+    protected static ?string $recordTitleAttribute = 'nama';
 
     public static function form(Schema $schema): Schema
     {
@@ -37,13 +53,6 @@ class KategoriResource extends Resource
     public static function table(Table $table): Table
     {
         return KategorisTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Artikels;
 
+use App\Filament\Concerns\AuthorizeWithPermission;
 use App\Filament\Resources\Artikels\Pages\CreateArtikel;
 use App\Filament\Resources\Artikels\Pages\EditArtikel;
 use App\Filament\Resources\Artikels\Pages\ListArtikels;
@@ -15,14 +16,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ArtikelResource extends Resource
 {
+    use AuthorizeWithPermission;
+
+    protected static string $permissionName = 'kelola_artikel';
+
     protected static ?string $model = Artikel::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
 
-    protected static ?string $recordTitleAttribute = 'Artikel';
+    protected static string|UnitEnum|null $navigationGroup = 'Konten';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationLabel = 'Berita & Artikel';
+
+    protected static ?string $modelLabel = 'Berita';
+
+    protected static ?string $pluralModelLabel = 'Berita';
+
+    protected static ?string $recordTitleAttribute = 'judul';
 
     public static function form(Schema $schema): Schema
     {
@@ -37,13 +53,6 @@ class ArtikelResource extends Resource
     public static function table(Table $table): Table
     {
         return ArtikelsTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

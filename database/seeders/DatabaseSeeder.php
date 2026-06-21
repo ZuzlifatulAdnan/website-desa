@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -15,18 +13,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Roles, permissions, dan akun default tiap role.
+        $this->call(RolePermissionSeeder::class);
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        DB::table('users')->insert([
-            [
-                'name' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make('12345678'),
-            ]
-        ]);
+        // 2. Pertahankan akun admin lama sebagai Super Admin.
+        $admin = User::updateOrCreate(
+            ['email' => 'admin@gmail.com'],
+            ['name' => 'Admin', 'password' => Hash::make('12345678')],
+        );
+        $admin->syncRoles(['super_admin']);
+
+        // 3. Pengaturan & profil desa (branding, peta, statistik).
+        $this->call(DesaProfileSeeder::class);
+
+        // 4. Konten contoh (aparatur, layanan, wisata, budaya, berita, dll).
+        $this->call(ContentSeeder::class);
     }
 }

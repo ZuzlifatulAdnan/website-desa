@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Aparaturs;
 
+use App\Filament\Concerns\AuthorizeWithPermission;
 use App\Filament\Resources\Aparaturs\Pages\CreateAparatur;
 use App\Filament\Resources\Aparaturs\Pages\EditAparatur;
 use App\Filament\Resources\Aparaturs\Pages\ListAparaturs;
@@ -15,14 +16,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AparaturResource extends Resource
 {
+    use AuthorizeWithPermission;
+
+    protected static string $permissionName = 'kelola_aparatur';
+
     protected static ?string $model = Aparatur::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup;
 
-    protected static ?string $recordTitleAttribute = 'Aparatur';
+    protected static string|UnitEnum|null $navigationGroup = 'Profil Desa';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationLabel = 'Aparatur Desa';
+
+    protected static ?string $modelLabel = 'Aparatur';
+
+    protected static ?string $pluralModelLabel = 'Aparatur Desa';
+
+    protected static ?string $recordTitleAttribute = 'nama';
 
     public static function form(Schema $schema): Schema
     {
@@ -37,13 +53,6 @@ class AparaturResource extends Resource
     public static function table(Table $table): Table
     {
         return AparatursTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

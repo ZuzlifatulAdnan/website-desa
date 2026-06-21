@@ -14,12 +14,14 @@ return new class extends Migration {
             $table->id();
             $table->string('judul');
             $table->string('slug')->unique();
-            $table->string('icon');
+            $table->string('icon')->default('fa-file-alt');
             $table->text('deskripsi');
-            $table->text('persyaratan');
-            $table->text('prosedur');
-            $table->string('waktu_pelayanan');
-            $table->string('biaya');
+            $table->text('persyaratan')->nullable();
+            $table->text('prosedur')->nullable();
+            $table->string('waktu_pelayanan')->nullable();
+            $table->string('biaya')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }

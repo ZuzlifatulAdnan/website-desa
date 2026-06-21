@@ -18,78 +18,29 @@
     <section class="budaya-list-section section-padding">
         <div class="container">
             <div class="grid-container">
-                <div class="news-card">
-                    <img src="https://placehold.co/400x300/16a34a/ffffff?text=Ruwat+Bumi" alt="Tradisi Ruwat Bumi"
-                        loading="lazy" />
-                    <div class="news-content">
-                        <div class="news-meta">
-                            <span class="category-tag tag-green">Upacara Adat</span>
-                            <span class="news-date"><i class="far fa-calendar-alt"></i> Tahunan</span>
+                @forelse ($budayas as $budaya)
+                    <div class="news-card">
+                        <img src="{{ $budaya->gambar_url }}" alt="{{ $budaya->judul }}" loading="lazy" />
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="category-tag tag-green">Tradisi</span>
+                                <span class="news-date"><i class="far fa-calendar-alt"></i> {{ $budaya->jadwal ?: 'Rutin' }}</span>
+                            </div>
+                            <h3>{{ $budaya->judul }}</h3>
+                            <p>{{ Str::limit($budaya->deskripsi, 120) }}</p>
+                            <a href="{{ route('budaya.show', $budaya->slug) }}" class="read-more-link">Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i></a>
                         </div>
-                        <h3>Ruwat Bumi</h3>
-                        <p>
-                            Upacara adat sebagai wujud syukur atas hasil panen dan
-                            kesuburan tanah desa.
-                        </p>
-                        <a href="{{ route('budaya.create') }}" class="read-more-link">Pelajari Lebih Lanjut <i
-                                class="fas fa-arrow-right"></i></a>
                     </div>
-                </div>
-
-                <div class="news-card">
-                    <img src="https://placehold.co/400x300/0ea5e9/ffffff?text=Sedekah+Laut" alt="Tradisi Sedekah Laut"
-                        loading="lazy" />
-                    <div class="news-content">
-                        <div class="news-meta">
-                            <span class="category-tag tag-blue">Tradisi Nelayan</span>
-                            <span class="news-date"><i class="far fa-calendar-alt"></i> Tahunan</span>
-                        </div>
-                        <h3>Sedekah Laut</h3>
-                        <p>
-                            Ritual para nelayan sebagai ucapan syukur atas hasil laut dan
-                            permohonan keselamatan.
-                        </p>
-                        <a href="{{ route('budaya.create') }}" class="read-more-link">Pelajari Lebih Lanjut <i
-                                class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="news-card">
-                    <img src="https://placehold.co/400x300/f97316/ffffff?text=Pesta+Panen" alt="Tradisi Pesta Panen"
-                        loading="lazy" />
-                    <div class="news-content">
-                        <div class="news-meta">
-                            <span class="category-tag tag-orange">Perayaan</span>
-                            <span class="news-date"><i class="far fa-calendar-alt"></i> Musiman</span>
-                        </div>
-                        <h3>Pesta Panen Raya</h3>
-                        <p>
-                            Perayaan meriah yang diisi dengan berbagai pertunjukan seni
-                            dan kuliner khas desa.
-                        </p>
-                        <a href="{{ route('budaya.create') }}" class="read-more-link">Pelajari Lebih Lanjut <i
-                                class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
+                @empty
+                    <p class="empty-state">Belum ada data budaya & tradisi.</p>
+                @endforelse
             </div>
 
             <div class="cta-bantuan">
                 <h3>Punya Informasi Mengenai Tradisi Lain?</h3>
-                <p>
-                    Kami sangat menghargai partisipasi warga dalam melestarikan dan
-                    mendokumentasikan budaya kita. Bagikan cerita Anda!
-                </p>
-                <a href="index.html#kontak" class="btn btn-primary">Hubungi Kami</a>
+                <p>Kami sangat menghargai partisipasi warga dalam melestarikan dan mendokumentasikan budaya kita. Bagikan cerita Anda!</p>
+                <a href="{{ route('kontak.index') }}" class="btn btn-primary">Hubungi Kami</a>
             </div>
-            <nav class="pagination">
-                <ul>
-                    <li><a href="#" class="page-link disabled">Sebelumnya</a></li>
-                    <li><a href="#" class="page-link active">1</a></li>
-                    <li><a href="#" class="page-link">2</a></li>
-                    <li><a href="#" class="page-link">3</a></li>
-                    <li><a href="#" class="page-link">Berikutnya</a></li>
-                </ul>
-            </nav>
         </div>
     </section>
 @endsection

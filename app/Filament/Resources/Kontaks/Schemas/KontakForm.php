@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Kontaks\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class KontakForm
@@ -13,19 +14,22 @@ class KontakForm
         return $schema
             ->components([
                 TextInput::make('nama')
-                    ->required(),
+                    ->disabled(),
                 TextInput::make('email')
-                    ->label('Email address')
                     ->email()
-                    ->required(),
+                    ->disabled(),
                 TextInput::make('no_telp')
-                    ->tel()
-                    ->required(),
+                    ->label('No. Telepon')
+                    ->disabled(),
                 TextInput::make('subjek')
-                    ->required(),
-                Textarea::make('pesan')
-                    ->required()
+                    ->disabled()
                     ->columnSpanFull(),
+                Textarea::make('pesan')
+                    ->disabled()
+                    ->rows(5)
+                    ->columnSpanFull(),
+                Toggle::make('is_read')
+                    ->label('Tandai sudah dibaca'),
             ]);
     }
 }

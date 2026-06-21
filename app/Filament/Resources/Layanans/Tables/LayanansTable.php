@@ -6,7 +6,9 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class LayanansTable
@@ -14,28 +16,25 @@ class LayanansTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('order')
+            ->reorderable('order')
             ->columns([
                 TextColumn::make('judul')
-                    ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('icon')
-                    ->searchable(),
+                    ->searchable()
+                    ->weight('bold'),
                 TextColumn::make('waktu_pelayanan')
-                    ->searchable(),
+                    ->label('Waktu')
+                    ->toggleable(),
                 TextColumn::make('biaya')
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
+                    ->badge()
+                    ->color('success'),
+                ToggleColumn::make('is_active')
+                    ->label('Aktif'),
+                TextColumn::make('order')
+                    ->label('Urutan')
+                    ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
             ])
             ->recordActions([
                 ViewAction::make(),

@@ -14,11 +14,15 @@ return new class extends Migration {
             $table->id();
             $table->string('judul');
             $table->string('slug')->unique();
-            $table->text('deskripsi');
+            $table->text('ringkasan')->nullable();
+            $table->longText('deskripsi');
             $table->string('gambar')->nullable();
             $table->foreignId('kategori_id')->constrained('kategoris')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->timestamp('published_at');
+            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->boolean('is_featured')->default(false);
+            $table->unsignedBigInteger('views')->default(0);
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }

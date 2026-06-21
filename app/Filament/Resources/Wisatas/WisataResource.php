@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Wisatas;
 
+use App\Filament\Concerns\AuthorizeWithPermission;
 use App\Filament\Resources\Wisatas\Pages\CreateWisata;
 use App\Filament\Resources\Wisatas\Pages\EditWisata;
 use App\Filament\Resources\Wisatas\Pages\ListWisatas;
@@ -15,14 +16,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class WisataResource extends Resource
 {
+    use AuthorizeWithPermission;
+
+    protected static string $permissionName = 'kelola_wisata';
+
     protected static ?string $model = Wisata::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMapPin;
 
-    protected static ?string $recordTitleAttribute = 'Wisata';
+    protected static string|UnitEnum|null $navigationGroup = 'Konten';
+
+    protected static ?int $navigationSort = 4;
+
+    protected static ?string $navigationLabel = 'Wisata';
+
+    protected static ?string $modelLabel = 'Wisata';
+
+    protected static ?string $pluralModelLabel = 'Wisata';
+
+    protected static ?string $recordTitleAttribute = 'judul';
 
     public static function form(Schema $schema): Schema
     {
@@ -37,13 +53,6 @@ class WisataResource extends Resource
     public static function table(Table $table): Table
     {
         return WisatasTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

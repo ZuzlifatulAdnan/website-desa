@@ -6,7 +6,10 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class WisatasTable
@@ -15,33 +18,23 @@ class WisatasTable
     {
         return $table
             ->columns([
+                ImageColumn::make('gambar')
+                    ->disk('public')
+                    ->height(48)
+                    ->width(72),
                 TextColumn::make('judul')
-                    ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('gambar')
-                    ->searchable(),
-                TextColumn::make('jam_buka')
-                    ->time()
-                    ->sortable(),
-                TextColumn::make('jam_tutup')
-                    ->time()
-                    ->sortable(),
+                    ->searchable()
+                    ->weight('bold'),
                 TextColumn::make('harga_tiket')
-                    ->searchable(),
-                TextColumn::make('fasilitas')
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
+                    ->badge()
+                    ->color('success'),
+                TextColumn::make('jam_buka')->time('H:i')->toggleable(),
+                TextColumn::make('jam_tutup')->time('H:i')->toggleable(),
+                IconColumn::make('is_featured')
+                    ->label('Unggulan')
+                    ->boolean(),
+                ToggleColumn::make('is_active')
+                    ->label('Aktif'),
             ])
             ->recordActions([
                 ViewAction::make(),

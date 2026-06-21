@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Budayas;
 
+use App\Filament\Concerns\AuthorizeWithPermission;
 use App\Filament\Resources\Budayas\Pages\CreateBudaya;
 use App\Filament\Resources\Budayas\Pages\EditBudaya;
 use App\Filament\Resources\Budayas\Pages\ListBudayas;
@@ -15,14 +16,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class BudayaResource extends Resource
 {
+    use AuthorizeWithPermission;
+
+    protected static string $permissionName = 'kelola_budaya';
+
     protected static ?string $model = Budaya::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSparkles;
 
-    protected static ?string $recordTitleAttribute = 'Budaya';
+    protected static string|UnitEnum|null $navigationGroup = 'Konten';
+
+    protected static ?int $navigationSort = 5;
+
+    protected static ?string $navigationLabel = 'Budaya';
+
+    protected static ?string $modelLabel = 'Budaya';
+
+    protected static ?string $pluralModelLabel = 'Budaya';
+
+    protected static ?string $recordTitleAttribute = 'judul';
 
     public static function form(Schema $schema): Schema
     {
@@ -37,13 +53,6 @@ class BudayaResource extends Resource
     public static function table(Table $table): Table
     {
         return BudayasTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

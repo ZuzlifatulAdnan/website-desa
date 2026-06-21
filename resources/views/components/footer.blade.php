@@ -3,21 +3,34 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <div class="footer-identity">
-                     <img src="{{ asset('img/logo/logo.png') }}" alt="Logo Desa Sumur Kumbang" class="footer-logo-image">
+                    <img src="{{ $desa?->logo_url ?? asset('img/logo/logo.png') }}" alt="Logo {{ $desa->nama_desa ?? 'Desa' }}" class="footer-logo-image">
                     <div>
-                        <h4>Desa Sumur Kumbang</h4>
-                        <span>Kec. Kalianda, Lampung Selatan</span>
+                        <h4>{{ $desa->nama_desa ?? 'Desa' }}</h4>
+                        <span>{{ ($desa->kecamatan ?? false) ? 'Kec. ' . $desa->kecamatan : '' }}{{ ($desa->kabupaten ?? false) ? ', ' . $desa->kabupaten : '' }}</span>
                     </div>
                 </div>
                 <p>
-                    Desa Sumur Kumbang adalah destinasi wisata yang menawarkan
-                    keindahan alam dan budaya. Kami berkomitmen mengembangkan potensi
-                    desa sambil melestarikan lingkungan.
+                    {{ $desa->footer_deskripsi ?? 'Website resmi desa untuk pelayanan publik, informasi, dan transparansi kepada masyarakat.' }}
                 </p>
                 <div class="social-icons">
-                    <a href="#" aria-label="Kunjungi Facebook kami"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Kunjungi Instagram kami"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Kunjungi Website kami"><i class="fas fa-globe"></i></a>
+                    @if ($desa->facebook ?? false)
+                        <a href="{{ $desa->facebook }}" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    @endif
+                    @if ($desa->instagram ?? false)
+                        <a href="{{ $desa->instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    @endif
+                    @if ($desa->youtube ?? false)
+                        <a href="{{ $desa->youtube }}" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    @endif
+                    @if ($desa->tiktok ?? false)
+                        <a href="{{ $desa->tiktok }}" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    @endif
+                    @if ($desa->whatsapp ?? false)
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $desa->whatsapp) }}" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    @endif
+                    @if ($desa->website ?? false)
+                        <a href="{{ $desa->website }}" target="_blank" rel="noopener" aria-label="Website"><i class="fas fa-globe"></i></a>
+                    @endif
                 </div>
             </div>
             <div class="footer-col">
@@ -28,6 +41,7 @@
                     <li><a href="{{ route('layanan.index') }}">Layanan</a></li>
                     <li><a href="{{ route('wisata.index') }}">Wisata</a></li>
                     <li><a href="{{ route('budaya.index') }}">Budaya</a></li>
+                    <li><a href="{{ route('galeri.index') }}">Galeri</a></li>
                     <li><a href="{{ route('berita.index') }}">Berita</a></li>
                     <li><a href="{{ route('kontak.index') }}">Kontak</a></li>
                 </ul>
@@ -37,23 +51,26 @@
                 <ul class="contact-list">
                     <li>
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Jl. Raya Sumur Kumbang<br />Desa Sumur Kumbang, Kec.
-                            Kalianda</span>
+                        <span>{{ $desa->alamat ?? ($desa->nama_desa ?? 'Desa') }}</span>
                     </li>
-                    <li>
-                        <i class="fas fa-phone"></i>
-                        <span>(021) 123-4567</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-envelope"></i>
-                        <span>info@sumurkumbang.id</span>
-                    </li>
+                    @if ($desa->telepon ?? false)
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>{{ $desa->telepon }}</span>
+                        </li>
+                    @endif
+                    @if ($desa->email ?? false)
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>{{ $desa->email }}</span>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <p>
-                &copy; 2025 Desa Sumur Kumbang. Semua hak dilindungi undang-undang.
+                &copy; {{ date('Y') }} {{ $desa->nama_desa ?? 'Desa' }}. Semua hak dilindungi undang-undang.
             </p>
         </div>
     </div>

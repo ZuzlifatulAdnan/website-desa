@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('posisi');
-            $table->string('gambar');
-            $table->integer('order');
+            $table->string('nip')->nullable();
+            $table->string('gambar')->nullable();
+            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }
